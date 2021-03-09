@@ -11,4 +11,5 @@ class OptionSerializer(serializers.ModelSerializer):
 class OptionPairSerializer(serializers.ModelSerializer):
     class Meta:
         model = OptionPair
-        fields = ('id', 'prompt_a', 'prompt_b', 'votes_a', 'votes_b')
+        fields = ('id', 'desc', 'prompt_a', 'prompt_b', 'votes_a', 'votes_b')
+        depth = 1

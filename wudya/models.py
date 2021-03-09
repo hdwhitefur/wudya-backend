@@ -11,6 +11,7 @@ class Option(models.Model):
 
 
 class OptionPair(models.Model):
+    desc = models.CharField(max_length=120)
     prompt_a = models.ForeignKey(Option, on_delete=models.CASCADE, related_name='prompt_a')
     prompt_b = models.ForeignKey(Option, on_delete=models.CASCADE, related_name='prompt_b')
     votes_a = models.IntegerField(default=0)
