@@ -23,3 +23,8 @@ class OptionPairSerializer(serializers.ModelSerializer):
         prompt_b = Option.objects.create(**prompt_b_data)
         op = OptionPair.objects.create(prompt_a=prompt_a, prompt_b=prompt_b, **validated_data)
         return op
+        
+class VoteSerializer(serializers.Serializer):
+    op_id = serializers.IntegerField(read_only=True)
+    new_votes_a = serializers.IntegerField(max_value=1, min_value=0)
+    new_votes_b = serializers.IntegerField(max_value=1, min_value=0)
