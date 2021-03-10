@@ -13,6 +13,12 @@ class OptionPairView(viewsets.ModelViewSet):
     serializer_class = OptionPairSerializer
     queryset = OptionPair.objects.all()
 
-class VoteView(APIView):
-    def put(self, request):
-        print(request)
+class VoteView(viewsets.ViewSet):
+    serializer_class = VoteSerializer
+
+    def update(self, request, pk=None):
+        op = get_object_or_404(OptionPair, pk=pk)
+        op.votes_a = op.votes_a + int(request.data['new_votes_a'])
+        op.votes_b = op.votes_b + int(request.data['new_votes_b'])
+        op.save()
+        return Response()
