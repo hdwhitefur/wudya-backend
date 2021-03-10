@@ -2,8 +2,10 @@ from django.shortcuts import render, get_object_or_404
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.decorators import action
 from .serializers import OptionSerializer, OptionPairSerializer, VoteSerializer
 from .models import Option, OptionPair
+import random
 
 class OptionView(viewsets.ModelViewSet):
     serializer_class = OptionSerializer
@@ -12,6 +14,11 @@ class OptionView(viewsets.ModelViewSet):
 class OptionPairView(viewsets.ModelViewSet):
     serializer_class = OptionPairSerializer
     queryset = OptionPair.objects.all()
+
+    @action(detail=False)
+    def get_random(self, request):
+        serializer = self.get_serializer(random.choice(OptionPair.objects.all()))
+        return Response(serializer.data)
 
 class VoteView(viewsets.ViewSet):
     serializer_class = VoteSerializer
